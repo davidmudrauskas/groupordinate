@@ -1,6 +1,7 @@
 class ShiftsController < ApplicationController
   before_action :set_shift, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  authorize_resource
 
   # GET /shifts
   # GET /shifts.json
@@ -15,7 +16,7 @@ class ShiftsController < ApplicationController
 
   # GET /shifts/new
   def new
-    @shift = Shift.new
+    @shift = current_user.shifts.new
   end
 
   # GET /shifts/1/edit
@@ -25,7 +26,7 @@ class ShiftsController < ApplicationController
   # POST /shifts
   # POST /shifts.json
   def create
-    @shift = Shift.new(shift_params)
+    @shift = current_user.shifts.new(shift_params)
 
     respond_to do |format|
       if @shift.save
@@ -70,6 +71,6 @@ class ShiftsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def shift_params
-      params.require(:shift).permit(:user_id, :start_at, :end_at)
+      params.require(:shift).permit(:start_at, :end_at)
     end
 end

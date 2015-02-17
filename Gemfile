@@ -41,3 +41,6 @@ gem 'pry'
 # Authentication
 gem 'devise', :git => 'https://github.com/plataformatec/devise.git'
 
+# Authorization
+gem 'cancancan'
+

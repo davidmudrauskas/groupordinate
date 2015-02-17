@@ -1,3 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 registered_user:
   email: registered_user
+
+app_admin:
+  email: app_admin

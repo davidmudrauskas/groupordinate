@@ -4,8 +4,10 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one:
+registered_user_shift:
   user: registered_user
   start_at: <%= Time.now %>
 
-# two: {}
+app_admin_shift:
+  user: app_admin
+  start_at: <%= Time.now %>

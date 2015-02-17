@@ -1,7 +1,8 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "app_admin?" do
+    assert_not(@registered_user.app_admin?)
+    assert(@app_admin.app_admin?)
+  end
 end

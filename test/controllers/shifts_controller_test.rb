@@ -4,7 +4,8 @@ class ShiftsControllerTest < ActionController::TestCase
   include Devise::TestHelpers
 
   setup do
-    @shift = shifts(:one)
+    @registered_user_shift = shifts(:registered_user_shift)
+    @app_admin_shift = shifts(:app_admin_shift)
   end
 
   # Total outsider
@@ -27,23 +28,23 @@ class ShiftsControllerTest < ActionController::TestCase
   end
 
   test "outsider should not show shift" do
-    get :show, id: @shift
+    get :show, id: @registered_user_shift
     assert_redirected_to new_user_session_path
   end
 
   test "outsider should not get edit" do
-    get :edit, id: @shift
+    get :edit, id: @registered_user_shift
     assert_redirected_to new_user_session_path
   end
 
   test "outsider should not update shift" do
-    patch :update, id: @shift, shift: { end_at: Time.now }
+    patch :update, id: @registered_user_shift, shift: { end_at: Time.now }
     assert_redirected_to new_user_session_path
   end
 
   test "outsider should not destroy shift" do
     assert_no_difference('Shift.count') do
-      delete :destroy, id: @shift
+      delete :destroy, id: @registered_user_shift
     end
 
     assert_redirected_to new_user_session_path
@@ -63,7 +64,7 @@ class ShiftsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "registered user should create shift" do
+  test "registered user should create own shift" do
     sign_in @registered_user
     assert_difference('Shift.count', +1) do
       post :create, shift: { start_at: Time.now, user_id: @registered_user.id }
@@ -72,30 +73,68 @@ class ShiftsControllerTest < ActionController::TestCase
     assert_redirected_to shift_path(assigns(:shift))
   end
 
-  test "registered user should show shift" do
+  test "registered user should create only own shift" do
     sign_in @registered_user
-    get :show, id: @shift
+    post :create, shift: { start_at: Time.now, user_id: @app_admin.id }
+
+    assert(@app_admin.shifts.count == 1)
+    assert(@registered_user.shifts.count == 2)
+    assert_redirected_to shift_path(assigns(:shift))
+  end  
+
+  test "registered user should show own shift" do
+    sign_in @registered_user
+    get :show, id: @registered_user_shift
     assert_response :success
   end
 
-  test "registered user should get edit" do
+  test "registered user should show other user shift" do
     sign_in @registered_user
-    get :edit, id: @shift
+    get :show, id: @app_admin_shift
     assert_response :success
   end
 
-  test "registered user should update shift" do
+  test "registered user should get own edit" do
     sign_in @registered_user
-    patch :update, id: @shift, shift: { end_at: Time.now }
+    get :edit, id: @registered_user_shift
+    assert_response :success
+  end
+
+  test "registered user should not get other user edit" do
+    sign_in @registered_user
+    get :edit, id: @app_admin_shift
+    assert_redirected_to root_path
+  end
+
+  test "registered user should update own shift" do
+    sign_in @registered_user
+    patch :update, id: @registered_user_shift, shift: { end_at: Time.now }
     assert_redirected_to shift_path(assigns(:shift))
   end
 
-  test "registered user should destroy shift" do
+  test "registered user should not update other user shift" do
+    sign_in @registered_user
+    patch :update, id: @app_admin_shift, shift: { end_at: Time.now }
+    assert_redirected_to root_path
+  end
+
+  test "registered user should destroy own shift" do
     sign_in @registered_user
     assert_difference('Shift.count', -1) do
-      delete :destroy, id: @shift
+      delete :destroy, id: @registered_user_shift
     end
 
     assert_redirected_to shifts_path
   end
+
+  test "registered user not should destroy other user shift" do
+    sign_in @registered_user
+    assert_no_difference('Shift.count') do
+      delete :destroy, id: @app_admin_shift
+    end
+
+    assert_redirected_to root_path
+  end
+
+  # App admin
 end

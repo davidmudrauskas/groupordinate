@@ -8,5 +8,6 @@ class ActiveSupport::TestCase
 
   setup do
     @registered_user = users(:registered_user)
+    @app_admin = users(:app_admin)
   end
 end
