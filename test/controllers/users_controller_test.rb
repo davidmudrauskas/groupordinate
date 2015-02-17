@@ -4,7 +4,7 @@ class UsersControllerTest < ActionController::TestCase
   include Devise::TestHelpers
 
   # Total outsider
-  test "outsider not should get index" do
+  test "outsider should not get index" do
     get :index
     assert_redirected_to new_user_session_path
   end
@@ -25,7 +25,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "outsider should not destroy user" do
-    assert_no_difference('User.count', -1) do
+    assert_no_difference('User.count') do
       delete :destroy, id: @registered_user
     end
 
@@ -33,7 +33,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   # Registered user
-  test "registered should get index" do
+  test "registered user should get index" do
     sign_in @registered_user
     get :index
     assert_response :success

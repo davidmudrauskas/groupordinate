@@ -20,7 +20,7 @@ class ShiftsControllerTest < ActionController::TestCase
 
   test "outsider should not create shift" do
     assert_no_difference('Shift.count') do
-      post :create, shift: {  }
+      post :create, shift: { start_at: Time.now, user_id: @registered_user.id }
     end
 
     assert_redirected_to new_user_session_path
@@ -37,12 +37,12 @@ class ShiftsControllerTest < ActionController::TestCase
   end
 
   test "outsider should not update shift" do
-    patch :update, id: @shift, shift: {  }
+    patch :update, id: @shift, shift: { end_at: Time.now }
     assert_redirected_to new_user_session_path
   end
 
   test "outsider should not destroy shift" do
-    assert_no_difference('Shift.count', -1) do
+    assert_no_difference('Shift.count') do
       delete :destroy, id: @shift
     end
 
