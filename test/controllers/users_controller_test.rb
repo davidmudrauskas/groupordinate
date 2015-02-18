@@ -94,4 +94,64 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   # App admin
+  test "app_admin should get index" do
+    sign_in @app_admin
+    get :index
+    assert_response :success
+    assert_not_nil assigns(:users)
+  end
+
+  test "app admin should show self" do
+    sign_in @app_admin
+    get :show, id: @app_admin
+    assert_response :success
+  end
+
+  test "app admin should show other user" do
+    sign_in @app_admin
+    get :show, id: @registered_user
+    assert_response :success
+  end
+
+  test "app admin should get own edit" do
+    sign_in @app_admin
+    get :edit, id: @app_admin
+    assert_response :success
+  end
+
+  test "app admin should get other user edit" do
+    sign_in @app_admin
+    get :edit, id: @registered_user
+    assert_response :success
+  end
+
+  test "app admin should update self" do
+    sign_in @app_admin
+    patch :update, id: @app_admin, user: {  }
+    assert_redirected_to user_path(assigns(:user))
+  end
+
+  test "app admin should update other user" do
+    sign_in @app_admin
+    patch :update, id: @registered_user, user: {  }
+    assert_redirected_to user_path(assigns(:user))
+  end
+
+  test "app admin should destroy self" do
+    sign_in @app_admin
+    assert_difference('User.count', -1) do
+      delete :destroy, id: @app_admin
+    end
+
+    assert_redirected_to users_path
+  end
+
+  test "app admin should destroy other user" do
+    sign_in @app_admin
+    assert_difference('User.count', -1) do
+      delete :destroy, id: @registered_user
+    end
+
+    assert_redirected_to users_path
+  end
 end

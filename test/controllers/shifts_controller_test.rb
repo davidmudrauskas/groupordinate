@@ -137,4 +137,88 @@ class ShiftsControllerTest < ActionController::TestCase
   end
 
   # App admin
+  test "app admin should get index" do
+    sign_in @app_admin
+    get :index
+    assert_response :success
+    assert_not_nil assigns(:shifts)
+  end
+
+  test "app admin should get new" do
+    sign_in @app_admin
+    get :new
+    assert_response :success
+  end
+
+  test "app admin should create own shift" do
+    sign_in @app_admin
+    assert_difference('Shift.count', +1) do
+      post :create, shift: { start_at: Time.now, user_id: @app_admin.id }
+    end
+
+    assert_redirected_to shift_path(assigns(:shift))
+  end
+
+  test "app admin should create only own shift" do
+    sign_in @app_admin
+    post :create, shift: { start_at: Time.now, user_id: @registered_user.id }
+
+    assert(@registered_user.shifts.count == 1)
+    assert(@app_admin.shifts.count == 2)
+    assert_redirected_to shift_path(assigns(:shift))
+  end  
+
+  test "app admin should show own shift" do
+    sign_in @app_admin
+    get :show, id: @app_admin_shift
+    assert_response :success
+  end
+
+  test "app admin should show other user shift" do
+    sign_in @app_admin
+    get :show, id: @registered_user_shift
+    assert_response :success
+  end
+
+  test "app admin should get own edit" do
+    sign_in @app_admin
+    get :edit, id: @app_admin_shift
+    assert_response :success
+  end
+
+  test "app admin should get other user edit" do
+    sign_in @app_admin
+    get :edit, id: @registered_user_shift
+    assert_response :success
+  end
+
+  test "app admin should update own shift" do
+    sign_in @app_admin
+    patch :update, id: @app_admin_shift, shift: { end_at: Time.now }
+    assert_redirected_to shift_path(assigns(:shift))
+  end
+
+  test "app admin should update other user shift" do
+    sign_in @app_admin
+    patch :update, id: @registered_user_shift, shift: { end_at: Time.now }
+    assert_redirected_to shift_path(assigns(:shift))
+  end
+
+  test "app admin should destroy own shift" do
+    sign_in @app_admin
+    assert_difference('Shift.count', -1) do
+      delete :destroy, id: @app_admin_shift
+    end
+
+    assert_redirected_to shifts_path
+  end
+
+  test "app admin should destroy other user shift" do
+    sign_in @app_admin
+    assert_difference('Shift.count', -1) do
+      delete :destroy, id: @registered_user_shift
+    end
+
+    assert_redirected_to shifts_path
+  end
 end
