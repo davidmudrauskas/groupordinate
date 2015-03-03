@@ -44,3 +44,8 @@ gem 'devise', :git => 'https://github.com/plataformatec/devise.git'
 # Authorization
 gem 'cancancan'
 
+# FullCalendar for shift-scheduling interface
+gem 'fullcalendar-rails'
+
+# Moment for FullCalendar
+gem 'momentjs-rails'
