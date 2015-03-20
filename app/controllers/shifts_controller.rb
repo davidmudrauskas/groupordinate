@@ -7,6 +7,12 @@ class ShiftsController < ApplicationController
   # GET /shifts.json
   def index
     @shifts = Shift.all
+    @shift = current_user.shifts.new
+
+    respond_to do |format|
+      format.html { render :index }
+      format.json { render json: Shift.fullcalendar_format(@shifts) }
+    end
   end
 
   # GET /shifts/1
@@ -30,7 +36,7 @@ class ShiftsController < ApplicationController
 
     respond_to do |format|
       if @shift.save
-        format.html { redirect_to @shift, notice: 'Shift was successfully created.' }
+        format.html { redirect_to shifts_url }
         format.json { render :show, status: :created, location: @shift }
       else
         format.html { render :new }

@@ -2,6 +2,12 @@
 
 <h1>Listing Shifts</h1>
 
-<div id="calendar"></div>
+<button class="new-shift">New Shift</button>
+<br>
+<br>
 
-<%= link_to 'New Shift', new_shift_path %>
+<div class="form-wrapper" hidden>
+  <%= render 'form' %>
+</div>
+
+<div id="calendar"></div>

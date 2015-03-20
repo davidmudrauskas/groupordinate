@@ -70,7 +70,7 @@ class ShiftsControllerTest < ActionController::TestCase
       post :create, shift: { start_at: Time.now, user_id: @registered_user.id }
     end
 
-    assert_redirected_to shift_path(assigns(:shift))
+    assert_redirected_to shifts_path
   end
 
   test "registered user should create only own shift" do
@@ -79,7 +79,7 @@ class ShiftsControllerTest < ActionController::TestCase
 
     assert(@app_admin.shifts.count == 1)
     assert(@registered_user.shifts.count == 2)
-    assert_redirected_to shift_path(assigns(:shift))
+    assert_redirected_to shifts_path
   end  
 
   test "registered user should show own shift" do
@@ -156,7 +156,7 @@ class ShiftsControllerTest < ActionController::TestCase
       post :create, shift: { start_at: Time.now, user_id: @app_admin.id }
     end
 
-    assert_redirected_to shift_path(assigns(:shift))
+    assert_redirected_to shifts_path
   end
 
   test "app admin should create only own shift" do
@@ -165,7 +165,7 @@ class ShiftsControllerTest < ActionController::TestCase
 
     assert(@registered_user.shifts.count == 1)
     assert(@app_admin.shifts.count == 2)
-    assert_redirected_to shift_path(assigns(:shift))
+    assert_redirected_to shifts_path
   end  
 
   test "app admin should show own shift" do
