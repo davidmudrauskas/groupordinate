@@ -7,7 +7,15 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <p class="alert"><%= alert %></p>
-  <%= yield %>
+  <div id="navbar">
+    <a class="logo" href="/">Groupordinate</a>
+    <a class="navlink" href=<%= new_user_registration_path %>>Sign up</a>
+    <a class="navlink" href=<%= new_user_session_path %>>Sign in</a>    
+  </div>
+  
+  <div id="page-wrapper">
+    <p class="alert"><%= alert %></p>
+    <%= yield %>
+  </div>
 </body>
 </html>
