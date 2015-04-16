@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%= javascript_include_tag :defaults %>
 <html>
 <head>
   <title>Groupordinate</title>
@@ -9,8 +10,12 @@
 <body>
   <div id="navbar">
     <a class="logo" href="/">Groupordinate</a>
-    <a class="navlink" href=<%= new_user_registration_path %>>Sign up</a>
-    <a class="navlink" href=<%= new_user_session_path %>>Sign in</a>    
+    <% if current_user %>
+      <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "navlink"%>
+    <% else %>
+      <%= link_to "Sign up", new_user_registration_path, class: "navlink"%>
+      <%= link_to "Sign in", new_user_session_path, class: "navlink"%>
+    <% end %>
   </div>
   
   <div id="page-wrapper">
