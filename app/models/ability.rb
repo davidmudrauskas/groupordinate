@@ -13,6 +13,10 @@ class Ability
       can :manage, User do |target_user|
         target_user == user
       end
+
+      can :manage, Group do |group|
+        group.users.include? user
+      end
     end
   end
 end
