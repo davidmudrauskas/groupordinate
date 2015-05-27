@@ -6,8 +6,10 @@
 #
 registered_user_shift:
   user: registered_user
+  group: registered_user_group
   start_at: <%= Time.now %>
 
 app_admin_shift:
   user: app_admin
+  group: app_admin_group
   start_at: <%= Time.now %>

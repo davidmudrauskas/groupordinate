@@ -3,4 +3,5 @@ class Group < ActiveRecord::Base
   has_many :shifts
   validates :name, presence: true
   validates :group_type, presence: true
+  accepts_nested_attributes_for :shifts
 end

@@ -3,18 +3,18 @@
 <html>
 <head>
   <title>Groupordinate</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
   <div id="navbar">
-    <a class="logo" href="/">Groupordinate</a>
+    <%= link_to "Groupordinate", groups_path, class: "logo" %>
     <% if current_user %>
-      <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "navlink"%>
+      <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "navlink" %>
     <% else %>
-      <%= link_to "Sign up", new_user_registration_path, class: "navlink"%>
-      <%= link_to "Sign in", new_user_session_path, class: "navlink"%>
+      <%= link_to "Sign up", new_user_registration_path, class: "navlink" %>
+      <%= link_to "Sign in", new_user_session_path, class: "navlink" %>
     <% end %>
   </div>
   

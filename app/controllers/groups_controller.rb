@@ -28,7 +28,7 @@ class GroupsController < ApplicationController
   def create
     @group = Group.new(group_params)
     current_user.groups << @group
-    authorize! :manage, @group# WHy isn't this already happening?
+    authorize! :manage, @group
 
     respond_to do |format|
       if current_user.save
