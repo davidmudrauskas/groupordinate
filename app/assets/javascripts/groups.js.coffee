@@ -6,7 +6,7 @@
 $ ->
   $(document).ready ->
     $("#calendar").fullCalendar({
-      events: '/shifts.json'  
+      events: window.location.pathname + '.json'  
     })
 
     $(".new-shift").on "click", ->
@@ -32,3 +32,6 @@ $ ->
       $("#shift_end_at_3i").val(day)
     
     # TODO: callback to renderEvent on form submission
+
+    $(".group-tab").on "click", ->
+      this.attr('class', 'newClass');

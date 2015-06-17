@@ -1,0 +1,10 @@
+<% @groups.each do |group| %>
+  <div class=<%= "group-tab" + (group == @group ? "-selected" : "") %>>
+    <%= link_to group.name, group_shifts_path(group), class: "group-link" %>
+  </div>
+<% end %>
+
+<%#= link_to "Manage your groups", groups_path, id: "group-management" %>
+<br>
+<br>
+<br>

@@ -9,7 +9,7 @@
 </head>
 <body>
   <div id="navbar">
-    <%= link_to "Groupordinate", groups_path, class: "logo" %>
+    <%= link_to "Groupordinate", root_path, class: "logo" %>
     <% if current_user %>
       <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "navlink" %>
     <% else %>

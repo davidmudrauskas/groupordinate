@@ -7,7 +7,7 @@ class ShiftsController < ApplicationController
   # GET /shifts
   # GET /shifts.json
   def index
-    @shifts = Shift.all
+    @shifts = @group.shifts
     @shift = current_user.shifts.new(group: @group)
 
     respond_to do |format|
