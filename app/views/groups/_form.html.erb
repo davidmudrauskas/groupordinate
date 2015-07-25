@@ -12,10 +12,10 @@
   <% end %>
 
   <%= f.text_field :name %>
-  <%= f.radio_button :group_type, "private", :checked => true %> 
-  <%= label :group_type_private, "Private" %>
-  <%= f.radio_button :group_type, "public" %> 
-  <%= label :group_type_public, "Public" %>
+  <%= f.radio_button :group_type, "private", :checked => true, :hidden => true %> 
+  <%= label :group_type_private, "Private", :hidden => true %>
+  <%= f.radio_button :group_type, "public", :hidden => true %> 
+  <%= label :group_type_public, "Public", :hidden => true %>
 
   <div class="actions">
     <%= f.submit %>
