@@ -17,6 +17,10 @@ class Ability
       can :manage, Group do |group|
         group.users.include? user
       end
+
+      can :manage, Invitation do |invitation|
+        Group.find(invitation.group_id).users.include? user
+      end
     end
   end
 end

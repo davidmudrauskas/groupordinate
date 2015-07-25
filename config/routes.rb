@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :groups do
     resources :shifts
+    resources :invitations
   end
 
   resources :shifts

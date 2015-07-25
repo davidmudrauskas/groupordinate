@@ -77,10 +77,6 @@ class ShiftsController < ApplicationController
       @shift = Shift.find(params[:id])
     end
 
-    def set_group
-      @group = Group.find(params[:group_id]) if params[:group_id]
-    end
-
     # Never trust parameters from the scary internet, only allow the white list through.
     def shift_params
       params.require(:shift).permit(:start_at, :end_at)

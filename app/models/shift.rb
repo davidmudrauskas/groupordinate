@@ -9,7 +9,8 @@ class Shift < ActiveRecord::Base
   def self.fullcalendar_format(shifts)
     new_format = []
     shifts.each do |shift|
-      new_shift = { id: shift.id, title: "Title", start: shift.start_at, end: shift.end_at }
+      email = shift.user.email
+      new_shift = { id: shift.id, title: email, start: shift.start_at, end: shift.end_at }
       new_format << new_shift
     end
     new_format

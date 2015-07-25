@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150526215245) do
+ActiveRecord::Schema.define(version: 20150725161006) do
 
   create_table "groups", force: :cascade do |t|
     t.string   "name"
@@ -29,6 +29,15 @@ ActiveRecord::Schema.define(version: 20150526215245) do
 
   add_index "groups_users", ["group_id"], name: "index_groups_users_on_group_id"
   add_index "groups_users", ["user_id"], name: "index_groups_users_on_user_id"
+
+  create_table "invitations", force: :cascade do |t|
+    t.integer  "group_id"
+    t.string   "sent_to"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "invitations", ["group_id"], name: "index_invitations_on_group_id"
 
   create_table "roles", force: :cascade do |t|
     t.integer  "user_id"

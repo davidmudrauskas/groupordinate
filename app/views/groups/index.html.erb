@@ -12,6 +12,7 @@
       <tr>
         <td><%= link_to group.name, edit_group_path(group) %></td>
         <!-- <td><%= group.group_type %></td> -->
+        <td><%= link_to 'Invite', new_group_invitation_path(group) %></td>
         <td><%= link_to 'Destroy', group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
