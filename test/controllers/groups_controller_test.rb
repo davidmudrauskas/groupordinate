@@ -72,7 +72,7 @@ class GroupsControllerTest < ActionController::TestCase
       post :create, group: { name: "New group", group_type: "private" }
     end
 
-    assert_redirected_to group_path(assigns(:group))
+    assert_redirected_to group_shifts_path(assigns(:group))
   end
 
   test "registered user should show own group" do
@@ -102,7 +102,7 @@ class GroupsControllerTest < ActionController::TestCase
   test "registered user should update own group" do
     sign_in @registered_user
     patch :update, id: @registered_user_group, group: { end_at: Time.now }
-    assert_redirected_to group_path(assigns(:group))
+    assert_redirected_to groups_path
   end
 
   test "registered user should not update other user group" do
@@ -149,7 +149,7 @@ class GroupsControllerTest < ActionController::TestCase
       post :create, group: { name: "New group", group_type: "private" }
     end
 
-    assert_redirected_to group_path(assigns(:group))
+    assert_redirected_to group_shifts_path(assigns(:group))
   end
 
   test "app admin should show own group" do
@@ -179,13 +179,13 @@ class GroupsControllerTest < ActionController::TestCase
   test "app admin should update own group" do
     sign_in @app_admin
     patch :update, id: @app_admin_group, group: { end_at: Time.now }
-    assert_redirected_to group_path(assigns(:group))
+    assert_redirected_to groups_path
   end
 
   test "app admin should update other user group" do
     sign_in @app_admin
     patch :update, id: @registered_user_group, group: { end_at: Time.now }
-    assert_redirected_to group_path(assigns(:group))
+    assert_redirected_to groups_path
   end
 
   test "app admin should destroy own group" do
